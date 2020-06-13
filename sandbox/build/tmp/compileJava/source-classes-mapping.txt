@@ -1,2 +1,2 @@
-JavaProg.java
- JavaProg
+ru/stqa/ptf/sandbox/JavaProg.java
+ ru.stqa.ptf.sandbox.JavaProg
