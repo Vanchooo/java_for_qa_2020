@@ -1,2 +1,4 @@
+ru/stqa/ptf/sandbox/Point.java
+ ru.stqa.ptf.sandbox.Point
 ru/stqa/ptf/sandbox/JavaProg.java
  ru.stqa.ptf.sandbox.JavaProg
