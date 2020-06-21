@@ -17,7 +17,7 @@ public class AddNewContactTests {
   }
 
   @Test
-  public void testAddNewContactTests() throws Exception {
+  public void testAddNewContact() throws Exception {
     initContactCreation();
     fillContactForm(new ContactData("Ivan", "Ivanov", "red square", "112244", "ivanov@test.ru"));
     returnToGroupPage();
