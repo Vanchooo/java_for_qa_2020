@@ -37,6 +37,8 @@ public class ContactHelper extends HelperBase {
 
     public void selectAlL() {click(By.id("MassCB"));}
 
+    public void selectFirst() {click(By.name("selected[]"));}
+
     public void deleteClick() {click(By.xpath("//input[@value='Delete']"));}
 
     public void clickYesOnPopUP() {wd.switchTo().alert().accept();}

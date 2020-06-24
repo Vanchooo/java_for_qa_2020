@@ -10,4 +10,12 @@ public class ContactDeletionTests extends TestBase {
         app.getContactHelper().deleteClick();
         app.getContactHelper().clickYesOnPopUP();
     }
+
+    @Test
+    public void testDeleteFirstContact(){
+        app.getContactHelper().selectFirst();
+        app.getContactHelper().deleteClick();
+        app.getContactHelper().clickYesOnPopUP();
+
+    }
 }
