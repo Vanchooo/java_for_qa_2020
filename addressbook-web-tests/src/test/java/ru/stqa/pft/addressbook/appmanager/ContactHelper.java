@@ -19,17 +19,11 @@ public class ContactHelper extends HelperBase {
         type(By.name("address"), contactData.getAddress());
         type(By.name("home"), contactData.getHomePhone());
         type(By.name("email"), contactData.getEmail());
-        click(By.xpath("(//input[@name='submit'])[2]"));
     }
 
-    public void fillContactFormForUpdate(ContactData contactData) {
-        type(By.name("firstname"), contactData.getFirstname());
-        type(By.name("lastname"), contactData.getLastname());
-        type(By.name("address"), contactData.getAddress());
-        type(By.name("home"), contactData.getHomePhone());
-        type(By.name("email"), contactData.getEmail());
-        click(By.name("update"));
-    }
+    public void submit(){ click(By.xpath("(//input[@name='submit'])[2]")); }
+
+    public void submitModification(){ click(By.name("update")); }
 
     public void initContactCreation() {
         click(By.linkText("add new"));
