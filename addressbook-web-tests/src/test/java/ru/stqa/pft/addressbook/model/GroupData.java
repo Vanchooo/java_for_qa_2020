@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class GroupData {
 
-    private  int id;
+    private int id;
 
     private final String name;
     private final String header;
@@ -47,10 +47,6 @@ public class GroupData {
         this.name = name;
         this.header = header;
         this.footer = footer;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
