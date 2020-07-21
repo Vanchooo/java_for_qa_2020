@@ -49,8 +49,8 @@ public class ContactHelper extends HelperBase {
 
 
     public void clickEditContact(int index){
-        index = index + 1;
-        wd.findElement(By.xpath("//*[@id='maintable']/tbody/tr["+index+"]/td[8]/a/img")).click();
+
+        wd.findElements(By.cssSelector("tr[name='entry']")).get(index).click();
 
     }
 
