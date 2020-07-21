@@ -72,7 +72,7 @@ public class ContactHelper extends HelperBase {
             return false;
         }
     }
-    
+
     public List<ContactData> getContactList() {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));

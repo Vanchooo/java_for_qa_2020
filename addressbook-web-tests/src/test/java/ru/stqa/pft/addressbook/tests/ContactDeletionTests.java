@@ -9,14 +9,14 @@ import java.util.List;
 
 public class ContactDeletionTests extends TestBase {
 
-    @Test
+    @Test(enabled = false)
     public void testDeleteAllContacts(){
         app.getContactHelper().selectAlL();
         app.getContactHelper().deleteClick();
         app.getContactHelper().clickYesOnPopUP();
     }
 
-    @Test
+    @Test(enabled = false)
     public void testDeleteFirstContact(){
         if (!app.getContactHelper().isThereAContact()){
             app.getContactHelper().createContact(new ContactData("IvanFirst", "Ivanov", "red square", "112244", "ivanov@test.ru"));

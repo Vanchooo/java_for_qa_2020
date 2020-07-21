@@ -25,7 +25,8 @@ public class ContactModificationTests extends TestBase {
 
         Assert.assertEquals(after.size(), before.size());
 
-        before.remove(before.size() - 1);
+        int LastElementInTable = before.size()-1;
+        before.remove(LastElementInTable);
         before.add(contactData);
         Comparator<? super ContactData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
         before.sort(byId);
