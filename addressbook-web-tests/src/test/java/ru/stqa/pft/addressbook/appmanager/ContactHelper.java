@@ -6,9 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
-import ru.stqa.pft.addressbook.model.GroupData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -103,12 +101,27 @@ public class ContactHelper extends HelperBase {
             int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
             String lastName = cells.get(1).getText();
             String firstName = cells.get(2).getText();
-            ContactData contact = new ContactData(id, firstName, lastName, null, null, null);
+            String[] phones = cells.get(5).getText().split("\n");
+            ContactData contact = new ContactData(id, firstName, lastName,
+                    null, phones[0], phones[1], phones[2], null);
 
             contacts.add(contact);
         }
         return contacts;
     }
 
+
+    public ContactData infoFromEditForm(ContactData contact) {
+        clickEditContactById(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        wd.navigate().back();
+        return new ContactData(contact.getId(),firstname, lastname,
+                null, home, mobile, work, null);
+
+    }
 
 }

@@ -24,6 +24,7 @@ public class ContactModificationTests extends TestBase {
                             "red square", "112244", "ivanov@test.ru"));
         }
     }
+
     @Test
     public void modifyContact(){
 
