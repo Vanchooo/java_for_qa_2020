@@ -7,6 +7,7 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 
+import java.io.File;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -17,11 +18,12 @@ public class ContactDeletionTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions(){
+        File photo = new File("src/test/resources/photo.png");
         app.goTo().contactPage();
         if (app.contact().all().size() == 0){
             app.contact().create
-                    (new ContactData("IvanFirst", "Ivanov",
-                            "red square", "112244", "ivanov@test.ru"));
+                    (new ContactData().withFirstName("IvanFirst").withLastName("Ivanov").withAddress("red square")
+                    .withHomePhone("112244").withEmail("ivanov@test.ru").withPhoto(photo));
         }
     }
 

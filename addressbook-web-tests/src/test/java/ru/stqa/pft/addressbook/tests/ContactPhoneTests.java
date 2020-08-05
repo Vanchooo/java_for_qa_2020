@@ -20,13 +20,19 @@ public class ContactPhoneTests extends TestBase {
 
         assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
         assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAddress()));
-        assertThat(contact.getEmail(), equalTo(contactInfoFromEditForm.getEmail()));
+        assertThat(contact.getAllEmails(), equalTo(mergeMails(contactInfoFromEditForm)));
     }
 
     private String mergePhones(ContactData contact) {
          return Arrays.asList(contact.getHomePhone(), contact.getMobile(), contact.getWork())
                 .stream().filter((s) -> !s.equals(""))
                 .map(ContactPhoneTests::cleaned)
+                .collect(Collectors.joining("\n"));
+    }
+
+    private String mergeMails(ContactData contact) {
+        return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
+                .stream()
                 .collect(Collectors.joining("\n"));
     }
 
