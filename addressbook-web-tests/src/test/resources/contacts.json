@@ -1,0 +1,23 @@
+[
+  {
+    "firstname": "Ivan0",
+    "lastname": "Ivanov0",
+    "address": "red square0",
+    "homePhone": "112244120",
+    "email": "ivanov0@test.ru"
+  },
+  {
+    "firstname": "Ivan1",
+    "lastname": "Ivanov1",
+    "address": "red square1",
+    "homePhone": "112244121",
+    "email": "ivanov1@test.ru"
+  },
+  {
+    "firstname": "Ivan2",
+    "lastname": "Ivanov2",
+    "address": "red square2",
+    "homePhone": "112244122",
+    "email": "ivanov2@test.ru"
+  }
+]

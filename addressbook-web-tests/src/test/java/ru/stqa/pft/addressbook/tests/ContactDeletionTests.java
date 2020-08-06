@@ -18,12 +18,12 @@ public class ContactDeletionTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions(){
-        File photo = new File("src/test/resources/photo.png");
+        //File photo = new File("src/test/resources/photo.png");
         app.goTo().contactPage();
         if (app.contact().all().size() == 0){
             app.contact().create
                     (new ContactData().withFirstName("IvanFirst").withLastName("Ivanov").withAddress("red square")
-                    .withHomePhone("112244").withEmail("ivanov@test.ru").withPhoto(photo));
+                    .withHomePhone("112244").withEmail("ivanov@test.ru"));
         }
     }
 
