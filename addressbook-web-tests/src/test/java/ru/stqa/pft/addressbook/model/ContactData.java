@@ -5,7 +5,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -33,6 +35,8 @@ public class ContactData {
     @Type(type = "text")
     private String homePhone;
 
+
+
     @Column(name = "mobile")
     @Type(type = "text")
     private String mobile;
@@ -40,6 +44,11 @@ public class ContactData {
     @Column(name = "work")
     @Type(type = "text")
     private String work;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name="id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
     @Override
     public boolean equals(Object o) {
@@ -50,12 +59,13 @@ public class ContactData {
                 Objects.equals(lastname, that.lastname) &&
                 Objects.equals(address, that.address) &&
                 Objects.equals(homePhone, that.homePhone) &&
+                Objects.equals(groups, that.groups) &&
                 Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstname, lastname, address, homePhone, email);
+        return Objects.hash(firstname, lastname, address, homePhone, groups, email);
     }
 
     @Expose
@@ -209,4 +219,12 @@ public class ContactData {
         return new File(photo);
     }
 
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
+
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
 }
