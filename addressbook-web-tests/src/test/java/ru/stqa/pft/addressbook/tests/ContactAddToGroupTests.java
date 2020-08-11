@@ -40,7 +40,7 @@ public class ContactAddToGroupTests extends TestBase {
         app.goTo().contactPage();
         app.contact().create(newContact);
         Contacts after = app.db().contacts();
-       
+
 
         before.add(newContact);
         assertEquals(before, after);
