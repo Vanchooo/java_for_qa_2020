@@ -50,24 +50,6 @@ public class ContactData {
             joinColumns = @JoinColumn(name="id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<GroupData> groups = new HashSet<GroupData>();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ContactData that = (ContactData) o;
-        return Objects.equals(firstname, that.firstname) &&
-                Objects.equals(lastname, that.lastname) &&
-                Objects.equals(address, that.address) &&
-                Objects.equals(homePhone, that.homePhone) &&
-                Objects.equals(groups, that.groups) &&
-                Objects.equals(email, that.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstname, lastname, address, homePhone, groups, email);
-    }
-
     @Expose
     @Column(name = "email")
     @Type(type = "text")
@@ -85,6 +67,10 @@ public class ContactData {
     @Transient
     private String allEmails;
 
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
+
     @Override
     public String toString() {
         return "ContactData{" +
@@ -97,9 +83,23 @@ public class ContactData {
                 '}';
     }
 
-    @Column(name = "photo")
-    @Type(type = "text")
-    private String photo;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactData that = (ContactData) o;
+        return Objects.equals(firstname, that.firstname) &&
+                Objects.equals(lastname, that.lastname) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(homePhone, that.homePhone) &&
+                Objects.equals(groups, that.groups) &&
+                Objects.equals(email, that.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstname, lastname, address, homePhone, groups, email);
+    }
 
 
     public ContactData withId(int id) {
