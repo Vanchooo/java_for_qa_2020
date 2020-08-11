@@ -34,15 +34,17 @@ public class ContactAddToGroupTests extends TestBase {
 
         Contacts before = app.db().contacts();
         Groups groups = app.db().groups();
+        GroupData group = groups.iterator().next();
         ContactData newContact = new ContactData().withFirstName("IvanFirst322").withLastName("Ivanov").withAddress("red square")
-                .withHomePhone("112244").withEmail("ivanov@test.ru").inGroup(groups.iterator().next());
+                .withHomePhone("112244").withEmail("ivanov@test.ru").inGroup(group);
         app.goTo().contactPage();
         app.contact().create(newContact);
         Contacts after = app.db().contacts();
-        assertEquals(after.size(), before.size() + 1);
+       
 
         before.add(newContact);
         assertEquals(before, after);
+
 
     }
 
@@ -62,7 +64,7 @@ public class ContactAddToGroupTests extends TestBase {
         app.contact().clickRemoveFromGroup();
         Contacts after = app.db().contacts();
 
-        assertEquals(after.size(), app.db().contacts().size());
+
 
         assertThat(after, equalTo(before.without(modifiedContact).withAdded(newContact)));
 
