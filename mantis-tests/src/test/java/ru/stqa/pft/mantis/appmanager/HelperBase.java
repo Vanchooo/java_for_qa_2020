@@ -5,6 +5,7 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 public class HelperBase {
 
@@ -14,6 +15,8 @@ public class HelperBase {
     public HelperBase(ApplicationManager app) {
         this.app = app;
         this.wd = app.getDriver();
+        wd.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        wd.manage().window().maximize();
     }
 
     protected void click(By locator) {

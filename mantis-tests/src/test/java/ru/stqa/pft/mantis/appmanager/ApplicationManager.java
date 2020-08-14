@@ -1,7 +1,5 @@
 package ru.stqa.pft.mantis.appmanager;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -13,7 +11,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.MatchResult;
 
 public class ApplicationManager {
     private final Properties properties;
@@ -23,6 +20,8 @@ public class ApplicationManager {
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
+    private LoginHelper loginHelper;
+    private UsersControlHelper usersControlHelper;
 
 
     public ApplicationManager(String browser) {
@@ -60,6 +59,26 @@ public class ApplicationManager {
         return registrationHelper;
     }
 
+    public LoginHelper login() {
+        if (loginHelper == null){
+            loginHelper = new LoginHelper(this);
+        }
+        return loginHelper;
+    }
+
+
+
+//    public UsersControlHelper usersControl() {
+//        return usersControlHelper;
+//    }
+
+    public UsersControlHelper usersControl() {
+        if (usersControlHelper == null){
+            usersControlHelper = new UsersControlHelper(this);
+        }
+        return usersControlHelper;
+    }
+
     public FtpHelper ftp(){
         if (ftp == null) {
             ftp =  new FtpHelper(this);
@@ -77,7 +96,6 @@ public class ApplicationManager {
                 wd = new InternetExplorerDriver();
             }
 
-            wd.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
             wd.get(properties.getProperty("web.baseUrl"));
         }
         return wd;
