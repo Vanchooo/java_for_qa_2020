@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.support.PageFactory;
 
 import java.io.File;
 import java.io.FileReader;
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
     private final Properties properties;
-    private WebDriver wd;
+    public WebDriver wd;
 
     private String browser;
     private RegistrationHelper registrationHelper;
@@ -72,12 +73,14 @@ public class ApplicationManager {
 //        return usersControlHelper;
 //    }
 
-    public UsersControlHelper usersControl() {
-        if (usersControlHelper == null){
-            usersControlHelper = new UsersControlHelper(this);
-        }
+  public UsersControlHelper usersControl() {
+       if (usersControlHelper == null){
+           usersControlHelper = new UsersControlHelper(this);
+       }
         return usersControlHelper;
     }
+
+
 
     public FtpHelper ftp(){
         if (ftp == null) {
