@@ -1,0 +1,13 @@
+apply plugin: 'java'
+
+
+dependencies {
+
+    testCompile group: 'org.testng', name: 'testng', version: '7.1.0'
+    //api/soap/mantisconnect.php?wsdl
+
+}
+
+
+
+

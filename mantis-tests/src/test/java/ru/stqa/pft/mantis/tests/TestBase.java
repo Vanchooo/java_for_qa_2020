@@ -1,19 +1,19 @@
 package ru.stqa.pft.mantis.tests;
 
+import biz.futureware.mantis.rpc.soap.client.IssueData;
+import biz.futureware.mantis.rpc.soap.client.MantisConnectLocator;
+import biz.futureware.mantis.rpc.soap.client.MantisConnectPortType;
 import org.openqa.selenium.remote.BrowserType;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.SkipException;
+import org.testng.annotations.*;
 import ru.stqa.pft.mantis.appmanager.ApplicationManager;
 
 
-import java.io.File;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
-import static org.hamcrest.CoreMatchers.equalTo;
+import javax.xml.rpc.ServiceException;
+import java.math.BigInteger;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.rmi.RemoteException;
 
 public class TestBase {
 
@@ -32,6 +32,27 @@ public class TestBase {
         //app.ftp().restore("config_inc.php.bak", "config_inc.php");
         app.stop();
 
+    }
+
+    public static void skipIfNotFixed(int issueId) throws RemoteException, ServiceException, MalformedURLException {
+        if (isIssueOpen(issueId)) {
+            throw new SkipException("Ignored because of issue " + issueId);
+        }
+    }
+
+    public static boolean isIssueOpen(int id) throws MalformedURLException, ServiceException, RemoteException {
+        MantisConnectPortType mc = getMantisConnect();
+        IssueData data = mc.mc_issue_get("administrator", "root", BigInteger.valueOf(id));
+        String status = data.getStatus().getName();
+
+        if(status.equals("resolved")){
+            return false;
+        } else return true;
+    }
+
+    public static MantisConnectPortType getMantisConnect() throws ServiceException, MalformedURLException {
+        return new MantisConnectLocator().
+                getMantisConnectPort(new URL("http://localhost/mantisbt-2.24.2/api/soap/mantisconnect.php"));
     }
 
 
