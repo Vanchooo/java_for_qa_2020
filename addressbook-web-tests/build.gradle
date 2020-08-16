@@ -20,7 +20,8 @@ dependencies {
 
 task testContacts(type: Test) {
     useTestNG {
-        suites 'src/test/resources/testng-groups.xml'
+        suites 'src/test/resources/testng-contacts.xml'
+
     }
 
     if (project.hasProperty('browser')){
@@ -36,7 +37,7 @@ task testContacts(type: Test) {
 
     task testGroups(type: Test) {
         useTestNG {
-            suites 'src/test/resources/testng-contacts.xml'
+            suites 'src/test/resources/testng-groups.xml'
         }
 
         if (project.hasProperty('browser')){
