@@ -55,7 +55,8 @@ public class RestTests {
 
         JsonElement parsed = new JsonParser().parse(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
-        JsonElement state = issues.getAsJsonObject().get("state_name");
+        JsonElement issue = issues.getAsJsonArray().get(0).getAsJsonObject();
+        String state = String.valueOf(issue.getAsJsonObject().get("state_name"));
         //JsonElement jsonObject = issues.getAsJsonObject().get("state_name");
         System.out.println(state);
 //
