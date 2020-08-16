@@ -25,7 +25,7 @@ public class PointTest {
     @Test
     public void testPoint3(){
         Assert.assertEquals(point.distance(p3),1.4142135623730951);
-    } 
+    }
 
 
 }
