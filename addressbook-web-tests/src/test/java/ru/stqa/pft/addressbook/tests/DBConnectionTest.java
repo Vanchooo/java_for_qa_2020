@@ -1,6 +1,8 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
@@ -19,7 +21,8 @@ public class DBConnectionTest {
             ResultSet rs = st.executeQuery("select group_id, group_name, group_header, group_footer from group_list");
             Groups groups = new Groups();
             while (rs.next()){
-                groups.add(new GroupData().withId(rs.getInt("group_id")).withName(rs.getString("group_name")).withHeader(rs.getString("group_header")).withFooter(rs.getString("group_footer")));
+                groups.add(new GroupData().withId(rs.getInt("group_id"))
+                        .withName(rs.getString("group_name")).withHeader(rs.getString("group_header")).withFooter(rs.getString("group_footer")));
             }
             rs.close();
             st.close();
@@ -35,5 +38,34 @@ public class DBConnectionTest {
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
+    }
+
+
+    public Contacts getContactsWithGroups(){
+        Connection conn = null;
+
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/addressbook?user=root&password=&serverTimezone=UTC");
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM `addressbook` ad INNER JOIN address_in_groups adg ON ad.id = adg.id");
+            Contacts contacts = new Contacts();
+            while (rs.next()){
+                contacts.add(new ContactData().withId(rs.getInt("id")).withFirstName(rs.getString("firstname"))
+                        .withLastName(rs.getString("lastname")).withAddress(rs.getString("address"))
+                        .withHomePhone(rs.getString("home")).withEmail(rs.getString("email")));
+            }
+            rs.close();
+            st.close();
+            conn.close();
+
+            return contacts;
+
+        } catch (SQLException ex) {
+            // handle any errors
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+        return null;
     }
 }
