@@ -150,5 +150,17 @@ public class ContactHelper extends HelperBase {
     }
 
 
+    public Contacts returnContactsWithGroups(Contacts before) {
+        Contacts contactsWithGroups = new Contacts();
+        for(ContactData contact : before){
+            if(contact.getGroups().size() != 0){
+                contactsWithGroups.add(contact);
+            }
+        }
+        return contactsWithGroups;
+    }
 
+    public void clickAddTo() {
+        click(By.xpath("//*[@id='content']/form[2]/div[4]/input"));
+    }
 }

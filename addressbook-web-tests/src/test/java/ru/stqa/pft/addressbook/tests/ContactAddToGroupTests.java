@@ -48,43 +48,4 @@ public class ContactAddToGroupTests extends TestBase {
 
     }
 
-    @Test
-    public void testContactDeleteFromGroup() throws Exception {
-
-        Contacts before = app.db().getContactsWithGroups();
-        Groups groups = app.db().groups();
-        GroupData group = groups.iterator().next();
-        ContactData modifiedContact = before.iterator().next();
-        ContactData newContact = new ContactData().withId(modifiedContact.getId()).withFirstName("IvanFirst322").withLastName("Ivanov").withAddress("red square")
-                .withHomePhone("112244").withEmail("ivanov@test.ru").inGroup(group);
-        app.goTo().contactPage();
-        app.contact().create(newContact);
-        app.contact().selectRightGroup(group);
-        app.contact().selectContactById(newContact.getId());
-        app.contact().clickRemoveFromGroup();
-        Contacts after = app.db().contacts();
-
-        assertThat(after, equalTo(before.without(modifiedContact).withAdded(newContact)));
-
-    }
-
-    @Test
-    public void testContactDeleteFromGroup1() throws Exception {
-
-        Contacts before = app.db().contacts();
-        Groups groups = app.db().groups();
-        GroupData group = groups.iterator().next();
-        ContactData modifiedContact = before.iterator().next();
-        ContactData newContact = new ContactData().withId(modifiedContact.getId()).withFirstName("IvanFirst322").withLastName("Ivanov").withAddress("red square")
-                .withHomePhone("112244").withEmail("ivanov@test.ru").inGroup(group);
-        app.goTo().contactPage();
-        app.contact().create(newContact);
-        app.contact().selectRightGroup(group);
-        app.contact().selectContactById(newContact.getId());
-        app.contact().clickRemoveFromGroup();
-        Contacts after = app.db().contacts();
-
-        assertThat(after, equalTo(before.without(modifiedContact).withAdded(newContact)));
-
-    }
 }
