@@ -58,7 +58,7 @@ public class ContactDeleteFromGroupTests extends TestBase {
         ContactData contactAfterModified = contactsWithId.iterator().next();
         Groups groupsAfterModified = contactAfterModified.getGroups();
 
-        groupsBeforeModified.without(groupToDeleteFrom);
+
         assertThat(groupsAfterModified, equalTo(groupsBeforeModified.without(groupToDeleteFrom)));
 
 

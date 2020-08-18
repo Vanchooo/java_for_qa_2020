@@ -9,6 +9,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.List;
 
@@ -42,6 +43,10 @@ public class ContactHelper extends HelperBase {
 
     public void selectRightGroup(GroupData group) {
         new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+    }
+
+    public void selectRightGroupAddTo(GroupData group) {
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
     }
 
     public void submit(){ click(By.xpath("(//input[@name='submit'])[2]")); }
@@ -158,6 +163,16 @@ public class ContactHelper extends HelperBase {
             }
         }
         return contactsWithGroups;
+    }
+
+    public Contacts returnContactsCanAddToGroup(Contacts contacts, Groups groups){
+        Contacts contactsCanAddToGroup = new Contacts();
+        for(ContactData contact : contacts) {
+            if(contact.getGroups().size() < groups.size()){
+                contactsCanAddToGroup.add(contact);
+            }
+        }
+        return contactsCanAddToGroup;
     }
 
     public void clickAddTo() {

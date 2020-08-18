@@ -111,4 +111,21 @@ public class GroupHelper extends HelperBase {
     }
 
 
+    public GroupData returnGroupToAddTo(Groups contactGroups, Groups allGroups) {
+        GroupData groupToAddTo = new GroupData();
+
+        if(contactGroups.size() == 0){
+            groupToAddTo = allGroups.iterator().next();
+        }else {
+            for(GroupData groupInContact : contactGroups){
+                for(GroupData group : allGroups){
+                    if(!group.equals(groupInContact)){
+                        groupToAddTo = group;
+                    }
+                }
+            }
+        }
+
+        return groupToAddTo;
+    }
 }

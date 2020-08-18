@@ -29,22 +29,42 @@ public class ContactAddToGroupTests extends TestBase {
 
     }
 
+
     @Test
     public void testContactAddToGroup() throws Exception {
 
-        Contacts before = app.db().contacts();
+        Contacts contacts = app.db().contacts();
         Groups groups = app.db().groups();
-        GroupData group = groups.iterator().next();
-        ContactData newContact = new ContactData().withFirstName("IvanFirst322").withLastName("Ivanov").withAddress("red square")
-                .withHomePhone("112244").withEmail("ivanov@test.ru").inGroup(group);
-        app.goTo().contactPage();
-        app.contact().create(newContact);
-        Contacts after = app.db().contacts();
 
+        Contacts contactsCanAddToGroup = app.contact().returnContactsCanAddToGroup(contacts, groups);
 
-        before.add(newContact);
-        assertEquals(before, after);
+        ContactData contact = new ContactData();
 
+        if(contactsCanAddToGroup.size() == 0){
+            app.goTo().contactPage();
+            app.contact().create
+                    (new ContactData().withFirstName("IvanFirst").withLastName("Ivanov").withAddress("red square")
+                            .withHomePhone("112244").withEmail("ivanov@test.ru"));
+            contacts = app.db().contacts();
+            contactsCanAddToGroup = app.contact().returnContactsCanAddToGroup(contacts, groups);
+            contact = contactsCanAddToGroup.iterator().next();
+
+        }else {
+            contact = contactsCanAddToGroup.iterator().next();
+        }
+
+        Groups contactGroupsBeforeModified = contact.getGroups();
+        GroupData groupToAddTo = app.group().returnGroupToAddTo(contact.getGroups(), groups);
+
+        app.contact().selectContactById(contact.getId());
+        app.contact().selectRightGroupAddTo(groupToAddTo);
+        app.contact().clickAddTo();
+
+        Contacts contactsWithId = app.db().contactsWithSpecificID(contact.getId());
+        ContactData contactAfterModified = contactsWithId.iterator().next();
+        Groups groupsAfterModified = contactAfterModified.getGroups();
+
+        assertThat(groupsAfterModified, equalTo(contactGroupsBeforeModified.withAdded(groupToAddTo)));
 
     }
 
